@@ -1,5 +1,4 @@
 import { useState } from "react";  
-import type { SetStateAction } from "react";
 
 interface TodoInputProps {
   categories: string[];
