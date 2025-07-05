@@ -1,21 +1,22 @@
 import { useState } from "react";
+import type { SetStateAction } from "react";
 
 interface CategorySectionProps {
   categories: string[];
-  setCategories: React.Dispatch<React.SetStateAction<string[]>>;  
+  setCategories: (value: SetStateAction<string[]>) => void;
 }
 
-const CategorySection: React.FC<CategorySectionProps> = ({ categories, setCategories }) => {
+const CategorySection = ({ categories, setCategories }: CategorySectionProps) => {
   const [newCategory, setNewCategory] = useState("");
 
   const addCategory = () => {
-    if (newCategory && !categories.includes(newCategory)) {
-      setCategories((prevCategories) => [...prevCategories, newCategory]);
+    if (newCategory.trim() && !categories.includes(newCategory.trim())) { // Added .trim() for robustness
+      setCategories((prevCategories: string[]) => [...prevCategories, newCategory.trim()]); // Added .trim()
       setNewCategory("");
     }
   };
 
-  return (
+ return (
     <section className="category-section">
       <h2>Categories</h2>
       <input
