@@ -25,9 +25,9 @@ Simple, offline capable task manager.
 
 ## Notes
 
-This version of the simple to-do app was build so I could learn and practice with **React** and **TypeScript**.
+This version of the simple to-do app was built so I could learn and practice with **React** and **TypeScript**.
 Having previously created a very similar simple to-do app with plain Javascript, CSS and HTML I decided to recreate
-it with a modern JS framework and also try my hand with TypeScript.
+it with a modern JS framework and also try my hand at TypeScript.
 
 ## Live Demo on GitHub Pages
 
