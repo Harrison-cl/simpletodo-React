@@ -24,10 +24,11 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleTodoComplete, removeTod
       </span>
       <input
         type="checkbox"
+        className="todo-select"
         checked={todo.completed}
         onChange={() => toggleTodoComplete(todo.id)}
       />
-      <button onClick={() => removeTodo(todo.id)}>Remove</button>
+      <button onClick={() => removeTodo(todo.id)} className="danger-btn">Remove</button>
     </li>
   );
 }
@@ -45,7 +46,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, toggleTodoComplete, removeTo
         <span>Category</span>
         <span>to-do</span>
         <span>Status</span>
-        <span>Select</span>
+        <span>Actions</span>
       </li>
       {todos.map((todo) => (
         <TodoItem

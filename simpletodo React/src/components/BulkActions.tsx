@@ -8,7 +8,7 @@ const BulkActions = ({ removeCompletedTodos }: BulkActionsProps) => {
 
   return (
     <div className="bulk-actions">
-      <button id="remove-selected" onClick={removeCompletedTodos}>Remove Completed</button>
+      <button id="remove-selected" onClick={removeCompletedTodos} className="danger-btn">Remove Completed</button>
     </div>
   );
 };
