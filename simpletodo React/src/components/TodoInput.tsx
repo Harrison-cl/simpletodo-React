@@ -1,5 +1,5 @@
 import { useState } from "react";  
-import {removeCategory} from "./app"; 
+
 interface TodoInputProps {
   categories: string[];
   addTodo: (text: string, category: string) => void;
