@@ -62,6 +62,7 @@ main {
 }
 
 /* Form Elements */
+/* General styling for all inputs, selects, and buttons */
 input, select, button {
   padding: 0.5rem;
   border: 1px solid #ddd;
@@ -70,13 +71,27 @@ input, select, button {
 }
 
 /* --- CRITICAL FIX: Explicitly set background AND text color for inputs/selects + remove default appearance --- */
-input, select {
-  background-color: white;
-  color: var(--dark-color) !important; /* Forces dark text color, overriding other browser/root defaults */
-  -webkit-appearance: none; /* Removes default browser styling for input/select elements (e.g., silvery background) */
+/* Apply appearance: none ONLY to text-like inputs and selects, NOT checkboxes or radio buttons */
+input:not([type="checkbox"]):not([type="radio"]),
+select {
+  background-color: white; /* Explicitly set white background for text inputs and selects */
+  color: var(--dark-color) !important; /* Forces dark text color for text inputs and selects */
+  -webkit-appearance: none; /* Removes default browser styling for text inputs and selects */
   -moz-appearance: none;
-  appearance: none; /* Standard property to remove default select/input styling */
+  appearance: none; /* Main property to remove default select/input styling */
 }
+
+/* Checkbox specific styling (keep existing for centering/size, ensure background/border) */
+.todo-item input.todo-select {
+  display: block;
+  margin: 0 auto; /* Center the checkbox */
+  width: 18px;
+  height: 18px;
+  background-color: white; /* Ensure it has a white background for consistent look */
+  border: 1px solid #ddd; /* Ensure it has a border like other inputs */
+  /* IMPORTANT: DO NOT add appearance: none here. We want the native checkmark. */
+}
+
 
 button {
   background-color: var(--primary-color);

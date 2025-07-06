@@ -59,11 +59,8 @@ const TodoInput = ({ categories, addTodo, removeCategory }: TodoInputProps) => {
           </option>
         ))}
       </select>
+      <button id="add-todo" onClick={handleAddTodo}>Add to-do</button>
       <button id="remove-category" onClick={handleRemoveCategory} className="danger-btn">Remove Category</button>
-      <button id="add-todo" onClick={handleAddTodo}>
-        Add Item
-      </button>
-      {/* remove category handled elsewhere, need to handle in categorysection or bulkactions later */}
     </div>
   );
 };
