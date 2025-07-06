@@ -18,18 +18,22 @@
   box-sizing: border-box;
 }
 
-/* --- NEW / MODIFIED: Ensure full width/height for centering and consistent background --- */
+/* --- MODIFIED: More robust centering for the entire page content --- */
+/* Sets HTML and Body to fill viewport and uses flexbox to center content */
 html, body {
   width: 100%;
-  min-height: 100vh; /* Ensure body takes at least full viewport height */
-  margin: 0; /* Double-check no default margins */
-  padding: 0; /* Double-check no default padding */
+  height: 100%; /* Ensures body takes full viewport height */
+  margin: 0;
+  padding: 0;
+  display: flex; /* Make body a flex container */
+  flex-direction: column; /* Stack children (header, main, footer) vertically */
+  align-items: center; /* Center children horizontally within the flex container */
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
-  color: var(--dark-color);
+  color: var(--dark-color); /* General text color for body content */
   background-color: #f0f2f5;
 }
 
@@ -39,12 +43,15 @@ header, footer {
   color: white;
   text-align: center;
   padding: 1rem;
+  width: 100%; /* Ensures header/footer span full width when body is flex column */
 }
 
 main {
   max-width: 800px;
-  margin: 2rem auto; /* This should center it */
+  margin: 2rem auto; /* This will still center it within the flex-item 'main' itself */
   padding: 0 1rem;
+  width: 100%; /* Ensures main takes available width up to max-width */
+  flex-grow: 1; /* Allows main to take up remaining vertical space if content is short */
 }
 
 .app-container {
@@ -62,9 +69,13 @@ input, select, button {
   font-size: 1rem;
 }
 
-/* --- NEW: Explicitly set background-color to white for inputs/selects --- */
+/* --- CRITICAL FIX: Explicitly set background AND text color for inputs/selects + remove default appearance --- */
 input, select {
   background-color: white;
+  color: var(--dark-color) !important; /* Forces dark text color, overriding other browser/root defaults */
+  -webkit-appearance: none; /* Removes default browser styling for input/select elements (e.g., silvery background) */
+  -moz-appearance: none;
+  appearance: none; /* Standard property to remove default select/input styling */
 }
 
 button {
@@ -142,7 +153,6 @@ button:hover {
   text-align: center;
 }
 /* If you want individual headers for checkbox and remove button, you'd change TodoList.tsx header */
-/* For now, 'Actions' will cover both the checkbox and remove button columns */
 
 
 .todo-item {
@@ -200,15 +210,6 @@ button:hover {
 .danger-btn:hover {
   background-color: #c0392b;
 }
-
-/* --- REMOVED / REDUNDANT: #remove-selected - now using .danger-btn for consistency --- */
-/* #remove-selected {
-  background-color: var(--danger-color);
-}
-#remove-selected:hover {
-  background-color: #c0392b;
-} */
-
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
