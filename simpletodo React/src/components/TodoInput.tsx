@@ -1,11 +1,12 @@
 import { useState } from "react";  
-
+import {removeCategory} from "./app"; 
 interface TodoInputProps {
   categories: string[];
   addTodo: (text: string, category: string) => void;
+  removeCategory: (category: string) => void; // Function to remove a category
 }
 
-const TodoInput = ({ categories, addTodo }: TodoInputProps) => {
+const TodoInput = ({ categories, addTodo, removeCategory }: TodoInputProps) => {
   // State for the todo text input
   const [todoText, setTodoText] = useState('');
   // State for the selected category from the dropdown
@@ -24,6 +25,15 @@ const TodoInput = ({ categories, addTodo }: TodoInputProps) => {
 
     addTodo(todoText.trim(), selectedCategory); // Call the addTodo function passed from App.tsx
     setTodoText(''); // Clear the input field
+    setSelectedCategory(''); // Reset the selected category
+  };
+
+  const handleRemoveCategory = () => {
+    if (selectedCategory.trim() === '') {
+      alert('Please select a category to remove.');
+      return;
+    }
+    removeCategory(selectedCategory);
     setSelectedCategory(''); // Reset the selected category
   };
 
@@ -49,6 +59,7 @@ const TodoInput = ({ categories, addTodo }: TodoInputProps) => {
           </option>
         ))}
       </select>
+      <button id="remove-category" onClick={handleRemoveCategory}>Remove Category</button>
       <button id="add-todo" onClick={handleAddTodo}>
         Add Item
       </button>

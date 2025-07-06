@@ -26,11 +26,6 @@ const CategorySection = ({ categories, setCategories }: CategorySectionProps) =>
         placeholder="Add new category"
       />
       <button onClick={addCategory}>Add Category</button>
-      <ul>
-        {categories.map((category) => (
-          <li key={category}>{category}</li>
-        ))}
-      </ul>
     </section>
   );
 };

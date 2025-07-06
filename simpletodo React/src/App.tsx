@@ -23,10 +23,13 @@ function App() {
   
   const [categories, setCategories] = useState<string[]>(() => {
     // runs only once during the initial render
-    // Load categories from localStorage or start with an empty array
+    // Load categories from localStorage or start with default categories
     const savedCategories = localStorage.getItem('categories');
-    return savedCategories ? JSON.parse(savedCategories) : []; 
+    const defaultCategories = ['General', 'Work', 'Personal', 'Shopping', 'Health']; // Default categories
+    return savedCategories ? JSON.parse(savedCategories) : defaultCategories; // Default categories
   });
+
+  
 
   useEffect(() => {
     // Save todos to localStorage whenever they change
@@ -39,14 +42,20 @@ function App() {
   }, [categories]);
 
   const addTodo = (text: string, category: string) => {
+    if (text.trim() === '') return;
+    if (category.trim() === '') { // Ensure a category is selected
+        alert('Please select a category for the todo!');
+        return;
+    }
     const newTodo: Todo = {
-      id: Date.now().toString(), // Unique ID based on timestamp
+      id: Date.now().toString(),
       text,
       completed: false,
-      category
+      category,
     };
     setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
+
 
   const toggleTodoComplete = (id: string) => {
     setTodos((prevTodos) =>
@@ -60,18 +69,40 @@ function App() {
     setTodos((prevTodos) => prevTodos.filter(todo => todo.id !== id));
   };
 
+
+  const removeCategory = (categoryToRemove: string) => {
+    if (categoryToRemove.trim() === '') {
+        alert('Please select a category to remove.');
+        return;
+    }
+    if (!categories.includes(categoryToRemove)) {
+        alert(`Category "${categoryToRemove}" not found.`);
+        return;
+    }
+
+    // Remove the category from the categories list
+    setCategories((prevCategories) =>
+      prevCategories.filter(cat => cat !== categoryToRemove)
+    );
+
+    // Remove all todos associated with this category
+    setTodos((prevTodos) =>
+      prevTodos.filter(todo => todo.category !== categoryToRemove)
+    );
+
+    alert(`Category "${categoryToRemove}" and its associated tasks have been removed.`);
+  };
+
   return (
     <>
-      {/* This React Fragment wraps your main structure */}
-      {/* Your main application's structural HTML */}
       <Header />
 
       <main>
         <div className="app-container">
           <CategorySection categories={categories} setCategories={setCategories} /> {/* Pass props down */}
-          <TodoInput categories={categories} addTodo={addTodo} />
+          <TodoInput categories={categories} addTodo={addTodo} removeCategory={removeCategory}  /> {/* pass down function */}
           <TodoList todos={todos} toggleTodoComplete={toggleTodoComplete} removeTodo={removeTodo} /> {/* TodoList will render individual TodoItem components */}
-          <BulkActions todos={todos} setTodos={setTodos} />
+          <BulkActions removeCompletedTodos={removeCompletedTodos} />
         </div>
       </main>
 
