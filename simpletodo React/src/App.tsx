@@ -93,6 +93,10 @@ function App() {
     alert(`Category "${categoryToRemove}" and its associated tasks have been removed.`);
   };
 
+  const removeCompletedTodos = () => {
+    setTodos((prevTodos) => prevTodos.filter(todo => !todo.completed));
+  };
+
   return (
     <>
       <Header />

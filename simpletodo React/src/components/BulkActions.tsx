@@ -1,9 +1,14 @@
 // src/components/BulkActions.tsx
 
-const BulkActions = () => {
+interface BulkActionsProps {
+  removeCompletedTodos: () => void; // Function to remove completed todos
+}
+
+const BulkActions = ({ removeCompletedTodos }: BulkActionsProps) => {
+
   return (
     <div className="bulk-actions">
-      <button id="remove-selected">Remove Selected</button>
+      <button id="remove-selected" onClick={removeCompletedTodos}>Remove Completed</button>
     </div>
   );
 };
