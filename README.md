@@ -1,4 +1,4 @@
-# Minimalist to-do App (React & TypeScript)
+# Simple to-do App (React & TypeScript)
 
 Simple, offline capable task manager.
 
